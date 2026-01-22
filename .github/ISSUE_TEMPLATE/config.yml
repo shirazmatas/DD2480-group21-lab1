@@ -16,7 +16,7 @@ issue_templates:
     labels: ["documentation"]
     body: "./ISSUE_TEMPLATE/documentation.md"
   - name: "General Report"
-    description: "Provide general feedback or inquiries."
-    title: "[General]: "
-    labels: ["general"]
-    body: "./ISSUE_TEMPLATE/general_report.md"
+    description: "Describe a task to be done"
+    title: "[Task]: "
+    labels: ["task"]
+    body: "./ISSUE_TEMPLATE/task.md"
