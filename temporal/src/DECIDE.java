@@ -1,54 +1,25 @@
-import java.awt.geom.*
+public class Decide {
 
-public class Decide{
-    public class Parameters {
-        double length1;
-        double radius1;
-        double epsilon;
-        double area1;
-        int qPts;
-        int quads;
-        double dist;
-        int nPts;
-        int kPts;
-        int aPts;
-        int bPts;
-        int cPts;
-        int dPts;
-        int ePts;
-        int fPts;
-        int gPts;
-        double length2;
-        double radius2;
-        double area2;
-    }
-
-    private enum Connectors {
+    public enum Connector {
         AND,
         OR,
-        NOTUSED
+        NOT_USED
     }
 
-    // LIC's
-
-
-    // Calculate matrixes
-    public boolean[] calculateCMV(){
-        return
+    public boolean decide(Point[] points, Parameters parameters, Connector[][] lcm, boolean[] puv) {
+        throw new UnsupportedOperationException();
     }
 
-    public boolean[][] calculatePUM(){
-        return
+    private boolean[] calculateCMV(Point[] points, Parameters parameters) {
+        throw new UnsupportedOperationException();
     }
 
-    public boolean[] calculateFUV(){
-        ret
+    private boolean[][] calculatePUM(boolean[] cmv, Connector[][] lcm){
+        throw new UnsupportedOperationException();
     }
 
-    public boolean decide(){
-
-        return false;
+    private boolean[] calculateFUV(boolean[][] pum, boolean[] puv) {
+        throw new UnsupportedOperationException();
     }
-
 
 }
