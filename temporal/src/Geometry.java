@@ -10,11 +10,44 @@ public final class Geometry {
         throw new UnsupportedOperationException();
     }
 
-    public static boolean containedInCircle(Point[] points, double radius) {
-        throw new UnsupportedOperationException();
+    /**
+     * Determines whether three points can be contained within or on a
+     * circle of the given radius.
+     *
+     * @param a the first point
+     * @param b the second point
+     * @param c the third point
+     * @param r the radius of the enclosing circle
+     * @return {@code true} if there exists a circle with the radius
+     * that contains all points
+     */
+    public static boolean circleContains(Point a, Point b, Point c, double r) {
+        if (midpointCircleContains(a, b, c, r)) return true;
+        if (midpointCircleContains(b, a, c, r)) return true;
+        if (midpointCircleContains(c, a, b, r)) return true;
+        return circumcircleContains(a, b, c, r);
     }
 
-    public static boolean triangleArea(Point a, Point b, Point c) {
+    /**
+     * Determines whether the points are contained in a circle with the given radius
+     * and a center that is the midpoint of a and b.
+     */
+    private static boolean midpointCircleContains(Point p, Point a, Point b, double r) {
+        Point m = new Point((a.x() + b.x()) / 2.0, (a.y() + b.y()) / 2.0);
+        return distance(a, b) <= 2 * r && distance(m, p) <= r;
+    }
+
+    /**
+     * Determines whether the circumcircle of the points has a radius less than
+     * or equal to the given radius.
+     */
+    private static boolean circumcircleContains(Point a, Point b, Point c, double r) {
+        double area = triangleArea(a, b, c);
+        if (area == 0.0) return false;
+        return distance(a, b) * distance(b, c) * distance(c, a) <= 4.0 * area * r;
+    }
+
+    public static double triangleArea(Point a, Point b, Point c) {
         throw new UnsupportedOperationException();
     }
 
