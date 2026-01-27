@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public final class LIC {
 
     private LIC() {}
@@ -89,28 +91,73 @@ public final class LIC {
     Iteration helpers
      */
 
+
+    /**
+     * Tests whether there exists at least one sequence of points with the given pattern
+     * of intervening points for which the supplied predicate evaluates to true. For example,
+     * a gaps array of {A, B} selects triples of points with exactly A points between the first
+     * and second, and B points between the second and third.
+     */
     private static boolean anySeparatedN(Point[] points, int[] gaps, NPredicate predicate) {
-        throw new UnsupportedOperationException();
+        int n = gaps.length + 1;
+        int width = n + Arrays.stream(gaps).sum();
+
+        for (int start = 0; start <= points.length - width; start++) {
+            Point[] group = new Point[n];
+
+            int index = start;
+            group[0] = points[index];
+
+            for (int i = 1; i < n; i++) {
+                index += 1 + gaps[i - 1];
+                group[i] = points[index];
+            }
+
+            if (predicate.test(group))
+                return true;
+        }
+
+        return false;
     }
 
+    /**
+     * Tests whether there exists at least one triple of points separated by the given gaps
+     * for which the supplied predicate evaluates to true.
+     */
     private static boolean anySeparatedTriple(Point[] points, int gap1, int gap2,  TriplePredicate predicate) {
-        throw new UnsupportedOperationException();
+        return anySeparatedN(points, new int[] {gap1, gap2}, p -> predicate.test(p[0], p[1], p[2]));
     }
 
+    /**
+     * Tests whether there exists at least one pair of points separated by the given gap
+     * for which the supplied predicate evaluates to true.
+     */
     private static boolean anySeparatedPair(Point[] points, int gap, PairPredicate predicate) {
-        throw new UnsupportedOperationException();
+        return anySeparatedN(points, new int[] {gap}, p -> predicate.test(p[0], p[1]));
     }
 
-    private static boolean anyConsecutiveN(Point[] points, NPredicate predicate) {
-        throw new UnsupportedOperationException();
+    /**
+     * Tests whether there exists at least one sequence of n consecutive points
+     * for which the supplied predicate evaluates to true.
+     */
+    private static boolean anyConsecutiveN(Point[] points, int n, NPredicate predicate) {
+        return anySeparatedN(points, new int[n - 1], predicate);
     }
 
+    /**
+     * Tests whether there exists at least one triple of consecutive points
+     * for which the supplied predicate evaluates to true.
+     */
     private static boolean anyConsecutiveTriple(Point[] points, TriplePredicate predicate) {
-        throw new UnsupportedOperationException();
+        return anyConsecutiveN(points, 3, p -> predicate.test(p[0], p[1], p[2]));
     }
 
+    /**
+     * Tests whether there exists at least one pair of consecutive points
+     * for which the supplied predicate evaluates to true.
+     */
     private static boolean anyConsecutivePair(Point[] points, PairPredicate predicate) {
-        throw new UnsupportedOperationException();
+        return anyConsecutiveN(points, 2, p -> predicate.test(p[0], p[1]));
     }
 
 }
