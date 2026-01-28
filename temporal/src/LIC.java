@@ -76,7 +76,11 @@ public final class LIC {
     }
 
     public static boolean lic6(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anyConsecutiveN(points, parameters.nPoints(), group ->
+            Arrays.stream(group).anyMatch( p ->
+                Geometry.distanceToLine(p, group[0], group[group.length - 1]) > parameters.distance()
+            )
+        );
     }
 
     public static boolean lic7(Point[] points, Parameters parameters) {
