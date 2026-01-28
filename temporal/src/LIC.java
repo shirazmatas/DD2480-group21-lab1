@@ -90,7 +90,9 @@ public final class LIC {
     }
 
     public static boolean lic8(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anySeparatedTriple(points, parameters.aPoints(), parameters.bPoints(), (a, b, c) ->
+            !Geometry.circleContains(a, b, c, parameters.radius1())
+        );
     }
 
     public static boolean lic9(Point[] points, Parameters parameters) {
