@@ -47,17 +47,24 @@ public final class LIC {
     public static boolean lic2(Point[] points, Parameters parameters) {
         TriplePredicate angleSmallerOrBiggerPiEpsilon = (a, b, c) -> {
             double angle = Geometry.angle(a,b,c);
-            return angle< (Math.PI - parameters.epsilon()) || angle > (Math.PI + parameters.epsilon());
+            return angle < (Math.PI - parameters.epsilon()) || angle > (Math.PI + parameters.epsilon());
         };
+        // Note The second of the three consecutive points is always the vertex of the angle. If either the first
+        //point or the last point (or both) coincides with the vertex, the angle is undefined and the LIC
+        //is not satisfied by those three points.
         return anyConsecutiveTriple(points, angleSmallerOrBiggerPiEpsilon);
     }
 
     public static boolean lic3(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        TriplePredicate triangleAreaGreaterThanArea1 = (a, b, c) -> Geometry.triangleArea(a,b,c) > parameters.area1();
+        return anyConsecutiveTriple(points, triangleAreaGreaterThanArea1);
     }
 
     public static boolean lic4(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        NPredicate oneSetOfQPointsInMoreThanQuadsQuadrants = (points1) ->{
+
+        }
+        return anyConsecutiveN(points, )
     }
 
     public static boolean lic5(Point[] points, Parameters parameters) {
