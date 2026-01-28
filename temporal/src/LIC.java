@@ -29,6 +29,7 @@ public final class LIC {
         PairPredicate distanceIsGreaterThanLength1 = (a, b) -> {
             // Calculate distance using distance formula
             double distance = Math.sqrt(Math.pow(a.x() - b.x(), 2) +Math.pow(a.y()-b.y(), 2));
+            // should use
             // Check if bigger than length1
             return distance > parameters.length1();
         };
@@ -44,7 +45,11 @@ public final class LIC {
     }
 
     public static boolean lic2(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        TriplePredicate angleSmallerOrBiggerPiEpsilon = (a, b, c) -> {
+            double angle = Geometry.angle(a,b,c);
+            return angle< (Math.PI - parameters.epsilon()) || angle > (Math.PI + parameters.epsilon());
+        };
+        return anyConsecutiveTriple(points, angleSmallerOrBiggerPiEpsilon);
     }
 
     public static boolean lic3(Point[] points, Parameters parameters) {
