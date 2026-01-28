@@ -19,7 +19,27 @@ public class Decide {
     }
 
     private boolean[] calculateFUV(boolean[][] pum, boolean[] puv) {
-        throw new UnsupportedOperationException();
+        // Go through all points
+        int n = puv.length; // should always be 15
+        boolean[] fuv = new boolean[n];
+        for (int i = 0; i < n; i++){
+            // check first puv[i] = 0
+            if (!puv[i]){
+                fuv[i] = true;
+            } else {
+                fuv[i] = isPumRowAllTrue(pum[i]);
+            }
+        }
+        return fuv;
+    }
+
+    private boolean isPumRowAllTrue(boolean[]row){
+        for (boolean condition: row){
+            if (!condition){
+                return false;
+            }
+        }
+        return true;
     }
 
 }
