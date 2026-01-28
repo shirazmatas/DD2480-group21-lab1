@@ -28,7 +28,7 @@ public final class LIC {
     public static boolean lic0(Point[] points, Parameters parameters) {
         PairPredicate distanceIsGreaterThanLength1 = (a, b) -> {
             // Calculate distance using distance formula
-            double distance = Math.sqrt(Math.pow(a.x(), b.x()) +Math.pow(a.y(), b.y()));
+            double distance = Math.sqrt(Math.pow(a.x() - b.x(), 2) +Math.pow(a.y()-b.y(), 2));
             // Check if bigger than length1
             return distance > parameters.length1();
         };
