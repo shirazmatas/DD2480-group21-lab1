@@ -67,7 +67,9 @@ public final class Geometry {
     }
 
     public static double distanceToLine(Point p, Point a, Point b) {
-        return 0.0;
+        double numerator = Math.abs( ((b.x() - a.x())*(p.y()-a.y())) - (b.y()-a.y())*(p.x()-a.x()) );
+        double denominator = Math.sqrt(((b.x() - a.x())*(b.x() - a.x())) + ((b.y()-a.y())*(b.y()-a.y())));
+        return numerator/denominator;
     }
 
 }
