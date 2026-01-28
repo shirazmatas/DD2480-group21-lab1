@@ -47,6 +47,13 @@ public final class Geometry {
         return distance(a, b) * distance(b, c) * distance(c, a) <= 4.0 * area * r;
     }
 
+    /**
+     * Determines whether two values are approximately equal within a given error.
+     */
+    public static boolean approximatelyEquals(double a, double b, double epsilon) {
+        return Math.abs(a - b) <= epsilon;
+    }
+
     public static double triangleArea(Point a, Point b, Point c) {
         throw new UnsupportedOperationException();
     }
