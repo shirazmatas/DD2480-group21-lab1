@@ -70,7 +70,9 @@ public final class LIC {
     }
 
     public static boolean lic5(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anyConsecutivePair(points, (a, b) ->
+            b.x() < a.x()
+        );
     }
 
     public static boolean lic6(Point[] points, Parameters parameters) {
