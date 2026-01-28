@@ -28,23 +28,45 @@ public final class LIC {
      */
 
     public static boolean lic0(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        PairPredicate distanceIsGreaterThanLength1 = (a, b) -> {
+            // Calculate distance using distance formula
+            double distance = Math.sqrt(Math.pow(a.x() - b.x(), 2) +Math.pow(a.y()-b.y(), 2));
+            // should use
+            // Check if bigger than length1
+            return distance > parameters.length1();
+        };
+        return anyConsecutivePair(points, distanceIsGreaterThanLength1);
     }
 
     public static boolean lic1(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        TriplePredicate consectiveThreeNotInCircle = (a,b,c ) -> {
+            Point[] abc = new Point[]{a, b, c};
+            return ! Geometry.containedInCircle(abc, parameters.radius1());
+        };
+        return anyConsecutiveTriple(points,consectiveThreeNotInCircle);
     }
 
     public static boolean lic2(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        TriplePredicate angleSmallerOrBiggerPiEpsilon = (a, b, c) -> {
+            double angle = Geometry.angle(a,b,c);
+            return angle < (Math.PI - parameters.epsilon()) || angle > (Math.PI + parameters.epsilon());
+        };
+        // Note The second of the three consecutive points is always the vertex of the angle. If either the first
+        //point or the last point (or both) coincides with the vertex, the angle is undefined and the LIC
+        //is not satisfied by those three points.
+        return anyConsecutiveTriple(points, angleSmallerOrBiggerPiEpsilon);
     }
 
     public static boolean lic3(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        TriplePredicate triangleAreaGreaterThanArea1 = (a, b, c) -> Geometry.triangleArea(a,b,c) > parameters.area1();
+        return anyConsecutiveTriple(points, triangleAreaGreaterThanArea1);
     }
 
     public static boolean lic4(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        NPredicate oneSetOfQPointsInMoreThanQuadsQuadrants = (points1) ->{
+
+        }
+        return anyConsecutiveN(points, )
     }
 
     public static boolean lic5(Point[] points, Parameters parameters) {
