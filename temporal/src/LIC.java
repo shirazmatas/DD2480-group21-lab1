@@ -84,7 +84,9 @@ public final class LIC {
     }
 
     public static boolean lic7(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anySeparatedPair(points, parameters.kPoints(), (a, b) ->
+            Geometry.distance(a, b) > parameters.length1()
+        );
     }
 
     public static boolean lic8(Point[] points, Parameters parameters) {
