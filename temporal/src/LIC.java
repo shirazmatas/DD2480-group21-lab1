@@ -96,7 +96,10 @@ public final class LIC {
     }
 
     public static boolean lic9(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anySeparatedTriple(points, parameters.cPoints(), parameters.dPoints(), (a, b, c) -> {
+            double angle = Geometry.angle(a, b, c);
+            return !Double.isNaN(angle) && !Geometry.approximatelyEquals(angle, Math.PI, parameters.epsilon());
+        });
     }
 
     public static boolean lic10(Point[] points, Parameters parameters) {
