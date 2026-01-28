@@ -20,6 +20,10 @@ public final class Geometry {
      * @return double angle
      */
     public static double angle(Point a, Point b, Point c) {
+        // Don't allow midpoint to be same as left or right point
+        if ((a.x() == b.x() && a.y() == b.y()) || (c.x() == b.x() && c.y() == b.y())) {
+            return Double.NaN;
+        }
         return Math.atan2(a.y()- b.y(), a.x() - b.x()) - Math.atan2(c.y() - b.y(), c.x() - b.x());
     }
 
