@@ -26,11 +26,19 @@ public final class LIC {
      */
 
     public static boolean lic0(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        PairPredicate distanceIsGreaterThanLength1 = (a, b) -> {
+            // Calculate distance using distance formula
+            double distance = Math.sqrt(Math.pow(a.x(), b.x()) +Math.pow(a.y(), b.y()));
+            // Check if bigger than length1
+            return distance > parameters.length1();
+        };
+        return anyConsecutivePair(points, distanceIsGreaterThanLength1);
     }
 
     public static boolean lic1(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        TriplePredicate consectiveThreeNotInCircle = (a, b,c ) -> {
+            // To find this we can check if the angle
+        };
     }
 
     public static boolean lic2(Point[] points, Parameters parameters) {
