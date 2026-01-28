@@ -2,12 +2,25 @@ public final class Geometry {
 
     private Geometry() {}
 
+    /** Calculates the distance between two paints and return their distance
+     *
+     * @param a the first point
+     * @param b the second point
+     * @return double distance
+     */
     public static double distance(Point a, Point b) {
-        throw new UnsupportedOperationException();
+       return Math.sqrt(Math.pow(a.x() - b.x(), 2) + Math.pow(a.y() - b.y(), 2));
     }
 
+    /** Calculate the angle created from the two line a -> b, b->c where b is the midpoint.
+     * angle = atan2(vector2.y, vector2.x) - atan2(vector1.y, vector1.x)
+     * @param a the first point
+     * @param b the middle point
+     * @param c the last point.
+     * @return double angle
+     */
     public static double angle(Point a, Point b, Point c) {
-        throw new UnsupportedOperationException();
+        return Math.atan2(a.y()- b.y(), a.x() - b.x()) - Math.atan2(c.y() - b.y(), c.x() - b.x());
     }
 
     /**
