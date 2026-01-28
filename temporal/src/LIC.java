@@ -36,9 +36,11 @@ public final class LIC {
     }
 
     public static boolean lic1(Point[] points, Parameters parameters) {
-        TriplePredicate consectiveThreeNotInCircle = (a, b,c ) -> {
-            // To find this we can check if the angle
+        TriplePredicate consectiveThreeNotInCircle = (a,b,c ) -> {
+            Point[] abc = new Point[]{a, b, c};
+            return ! Geometry.containedInCircle(abc, parameters.radius1());
         };
+        return anyConsecutiveTriple(points,consectiveThreeNotInCircle);
     }
 
     public static boolean lic2(Point[] points, Parameters parameters) {
