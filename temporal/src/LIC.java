@@ -115,7 +115,13 @@ public final class LIC {
     }
 
     public static boolean lic12(Point[] points, Parameters parameters) {
-        return false;
+        boolean condition1 = anySeparatedPair(points, parameters.kPoints(), (a, b) ->
+                Geometry.distance(a, b) > parameters.length1());
+
+        boolean condition2 = anySeparatedPair(points, parameters.kPoints(), (a, b) ->
+                Geometry.distance(a, b) < parameters.length2());
+
+        return condition1 && condition2;
     }
 
     public static boolean lic13(Point[] points, Parameters parameters) {
