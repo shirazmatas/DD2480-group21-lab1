@@ -109,7 +109,9 @@ public final class LIC {
     }
 
     public static boolean lic11(Point[] points, Parameters parameters) {
-        return false;
+        return anySeparatedPair(points, parameters.gPoints(), (a, b) ->
+                b.x() < a.x() //
+        );
     }
 
     public static boolean lic12(Point[] points, Parameters parameters) {
