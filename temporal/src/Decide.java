@@ -18,10 +18,6 @@ public class Decide {
         boolean[][] PUM = new boolean[cmv.length][cmv.length];
         for(int i = 0; i<lcm.length ; i++){
             for(int j = 0; j<lcm.length ; j++){
-                if(i==j){
-                    PUM[i][j] = cmv[i];
-                    continue;
-                }
                 switch (lcm[i][j]){
                     case OR -> PUM[i][j] = cmv[i] || cmv[j];
                     case AND -> PUM[i][j] = cmv[i] && cmv[j];
