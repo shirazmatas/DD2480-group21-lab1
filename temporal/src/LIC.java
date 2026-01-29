@@ -63,10 +63,20 @@ public final class LIC {
     }
 
     public static boolean lic4(Point[] points, Parameters parameters) {
-        NPredicate oneSetOfQPointsInMoreThanQuadsQuadrants = (points1) ->{
+        NPredicate oneSetOfQPointsInMoreThanQuadsQuadrants = (subsetPoints) ->{
+            boolean[] quadrantUsed = new boolean[4];
+            int count = 0;
+            for (Point p: subsetPoints){
+                int quadrantInt = getQuadrant(p);
+                quadrantUsed[quadrantInt] = true;
+            }
 
-        }
-        return anyConsecutiveN(points, )
+            for (boolean used: quadrantUsed){
+                if (used) count++;
+            }
+            return count > parameters.quads();
+        };
+        return anyConsecutiveN(points, parameters.qPoints(), oneSetOfQPointsInMoreThanQuadsQuadrants);
     }
 
     public static boolean lic5(Point[] points, Parameters parameters) {
@@ -209,6 +219,13 @@ public final class LIC {
      */
     private static boolean anyConsecutivePair(Point[] points, PairPredicate predicate) {
         return anyConsecutiveN(points, 2, p -> predicate.test(p[0], p[1]));
+    }
+
+    private static int getQuadrant(Point p){
+        if (p.x() >=0 && p.y() >= 0) return 1;
+        if (p.x() < 0 && p.y()>= 0) return 2;
+        if (p.x() <= 0 && p.y() < 0) return 3;
+        return 4;
     }
 
 }
