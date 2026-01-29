@@ -103,23 +103,25 @@ public final class LIC {
     }
 
     public static boolean lic10(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anySeparatedTriple(points, parameters.ePoints(), parameters.fPoints(), (a,b,c) -> {
+            return Geometry.triangleArea(a, b, c) > parameters.area1();
+        });
     }
 
     public static boolean lic11(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return false;
     }
 
     public static boolean lic12(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return false;
     }
 
     public static boolean lic13(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return false;
     }
 
     public static boolean lic14(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return false;
     }
 
     /*
