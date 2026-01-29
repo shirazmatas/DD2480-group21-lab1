@@ -133,10 +133,10 @@ public final class LIC {
 
     public static boolean lic13(Point[] points, Parameters parameters) {
         boolean condition1 = anySeparatedTriple(points, parameters.aPoints(), parameters.bPoints(), (a, b, c) ->
-                !Geometry.containedInCircle(new Point[]{a, b, c}, parameters.radius1()));
+                !Geometry.circleContains(a,b, c, parameters.radius1()));
 
         boolean condition2 = anySeparatedTriple(points, parameters.aPoints(), parameters.bPoints(), (a, b, c) ->
-                Geometry.containedInCircle(new Point[]{a, b, c}, parameters.radius2()));
+                Geometry.circleContains(a, b, c , parameters.radius2()));
 
         return condition1 && condition2;
     }
