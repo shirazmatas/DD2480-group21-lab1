@@ -7,7 +7,10 @@ public class Decide {
     }
 
     public boolean decide(Point[] points, Parameters parameters, Connector[][] lcm, boolean[] puv) {
-        throw new UnsupportedOperationException();
+        boolean[] cmv = calculateCMV(points, parameters);
+        boolean[][] pum = calculatePUM(cmv, lcm);
+        boolean[] fuv = calculateFUV(pum, puv);
+        return calculateLaunch(fuv);
     }
 
     /**
@@ -70,6 +73,13 @@ public class Decide {
                     return false;
                 }
             }
+        }
+        return true;
+    }
+
+    private boolean calculateLaunch(boolean[] fuv) {
+        for (boolean b : fuv) {
+            if (!b) return false;
         }
         return true;
     }
