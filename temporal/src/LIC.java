@@ -145,7 +145,13 @@ public final class LIC {
     }
 
     public static boolean lic14(Point[] points, Parameters parameters) {
-        return false;
+        boolean condition1 = anySeparatedTriple(points, parameters.ePoints(), parameters.fPoints(), (a, b, c) ->
+                Geometry.triangleArea(a, b, c) > parameters.area1());
+
+        boolean condition2 = anySeparatedTriple(points, parameters.ePoints(), parameters.fPoints(), (a, b, c) ->
+                Geometry.triangleArea(a, b, c) < parameters.area2());
+
+        return condition1 && condition2;
     }
 
     /*
