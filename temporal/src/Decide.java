@@ -27,16 +27,18 @@ public class Decide {
             if (!puv[i]){
                 fuv[i] = true;
             } else {
-                fuv[i] = isPumRowAllTrue(pum[i]);
+                fuv[i] = isPumRowAllTrue(pum[i], i);
             }
         }
         return fuv;
     }
 
-    private boolean isPumRowAllTrue(boolean[]row){
-        for (boolean condition: row){
-            if (!condition){
-                return false;
+    private boolean isPumRowAllTrue(boolean[]row, int i){
+        for (int j = 0; j < row.length; j++){
+            if (!row[j]){
+                if (j != i){
+                    return false;
+                }
             }
         }
         return true;
