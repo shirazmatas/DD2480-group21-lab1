@@ -20,6 +20,25 @@ public record Parameters(
     int gPoints
 ) {
     public Parameters {
-        // Input validation
+        if (length1 < 0 || length2 < 0)
+            throw new IllegalArgumentException("lengths must be non-negative");
+        if (radius1 < 0 || radius2 < 0)
+            throw new IllegalArgumentException("radii must be non-negative");
+        if (area1 < 0 || area2 < 0)
+            throw new IllegalArgumentException("areas must be non-negative");
+        if (distance < 0)
+            throw new IllegalArgumentException("distance must be non-negative");
+        if (epsilon < 0 || epsilon >= Math.PI)
+            throw new IllegalArgumentException("epsilon must be non-negative and less than pi");
+        if (quads < 1 || quads > 3)
+            throw new IllegalArgumentException("quads must be 1, 2 or 3");
+        if (qPoints < 2)
+            throw new IllegalArgumentException("qPoints must be greater than or equal to 2");
+        if (nPoints < 3)
+            throw new IllegalArgumentException("nPoints must be greater than or equal to 3");
+        if  (kPoints < 1 || aPoints < 1 || bPoints < 1 ||
+                cPoints < 1 || dPoints < 1 || ePoints < 1 ||
+                fPoints < 1 || gPoints < 1)
+            throw new IllegalArgumentException("separating points must be greater than or equal to 1 ");
     }
 }
