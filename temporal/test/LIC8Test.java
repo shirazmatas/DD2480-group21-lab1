@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 class LIC8Test {
 
     private static Parameters makeParameters(int aPoints, int bPoints, double radius1) {
-        return new Parameters(0, 0, radius1, 0, 0, 0, 0, 0, 1, 2, 3, 0, aPoints, bPoints, 1, 1, 1, 1, 1);
+        return new Parameters(0, 0, radius1, 0, 0, 0, 0, 0, 1, 2, 3, 1, aPoints, bPoints, 1, 1, 1, 1, 1);
     }
 
     @Test
