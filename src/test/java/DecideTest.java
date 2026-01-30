@@ -39,7 +39,7 @@ public class DecideTest {
             for (int j = 0; j < 15; j++) {
                 if (i == 0 || j == 0)
                     lcm[i][j] = Decide.Connector.OR;
-                if (i == 14 || j == 14)
+                else if (i == 14 || j == 14)
                     lcm[i][j] = Decide.Connector.NOT_USED;
                 else
                     lcm[i][j] = Decide.Connector.AND;
@@ -77,19 +77,19 @@ public class DecideTest {
 
         boolean[][] truePum = new boolean[][] {
                 new boolean[] {false, true, true, true, true, true, true, true, true, true, true, true, true, true, true},
-                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, true, false, false},
-                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-                new boolean[] {true, false, false, false, false, false, false, true, false, false, false, false, false, false, false},
-                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, true},
+                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, true},
+                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, true},
+                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, true},
+                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, true},
+                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, true},
+                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, true, false, true},
+                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, true},
+                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, true},
+                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, true},
+                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, true},
+                new boolean[] {true, false, false, false, false, false, false, true, false, false, false, false, false, false, true},
+                new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, true},
                 new boolean[] {true, true, true, true, true, true, true, true, true, true, true, true, true, true, false},
         };
 
@@ -153,14 +153,14 @@ public class DecideTest {
                 true,   // LIC 0: distance p1, p2 > 2
                 true,   // LIC 1: p1, p2, p3 do not fit in radius 1 circle
                 true,   // LIC 2: non-collinear points have angles that are not pi
-                false,  // LIC 3: p1, p2, p3 triangle area > 0.5
+                true,  // LIC 3: p1, p2, p3 triangle area > 0.5
                 false,  // LIC 4: all in same quadrant
                 true,   // LIC 5: not monotonic
                 true,   // LIC 6: distance p3 to p2-p4 line > 2 
                 true,   // LIC 7: distance p1, p3 > 2
-                false,  // LIC 8: p1, p3, p5 do not fit in radius 1 circle
-                false,  // LIC 9: p1, p3, p5 have angle that is not pi
-                false,  // LIC 10: p1, p3, p5 triangle area > 0.5
+                true,  // LIC 8: p1, p3, p5 do not fit in radius 1 circle
+                true,  // LIC 9: p1, p3, p5 have angle that is not pi
+                true,  // LIC 10: p1, p3, p5 triangle area > 0.5
                 true,   // LIC 11: not monotonic with gap 1
                 true,   // LIC 12: distance p2, p4 > 2 and < 5
                 true,   // LIC 13: p1, p3, p5 do not fit in radius 1 circle but fit in radius 10
@@ -171,18 +171,18 @@ public class DecideTest {
                 new boolean[] {false, true, true, true, true, true, true, true, true, true, true, true, true, true, true},
                 new boolean[] {true, false, true, true, true, true, true, true, true, true, true, true, true, true, true},
                 new boolean[] {true, true, false, true, true, true, true, true, true, true, true, true, true, true, true},
-                new boolean[] {true, true, true, false, false, true, true, true, false, false, false, true, true, true, false},
-                new boolean[] {true, true, true, false, false, true, true, true, false, false, false, true, true, true, false},
+                new boolean[] {true, true, true, false, true, true, true, true, true, true, true, true, true, true, true},
+                new boolean[] {true, true, true, true, false, true, true, true, true, true, true, true, true, true, false},
                 new boolean[] {true, true, true, true, true, false, true, true, true, true, true, true, true, true, true},
                 new boolean[] {true, true, true, true, true, true, false, true, true, true, true, true, true, true, true},
                 new boolean[] {true, true, true, true, true, true, true, false, true, true, true, true, true, true, true},
-                new boolean[] {true, true, true, false, false, true, true, true, false, false, false, true, true, true, false},
-                new boolean[] {true, true, true, false, false, true, true, true, false, false, false, true, true, true, false},
-                new boolean[] {true, true, true, false, false, true, true, true, false, false, false, true, true, true, false},
+                new boolean[] {true, true, true, true, true, true, true, true, false, true, true, true, true, true, true},
+                new boolean[] {true, true, true, true, true, true, true, true, true, false, true, true, true, true, true},
+                new boolean[] {true, true, true, true, true, true, true, true, true, true, false, true, true, true, true},
                 new boolean[] {true, true, true, true, true, true, true, true, true, true, true, false, true, true, true},
                 new boolean[] {true, true, true, true, true, true, true, true, true, true, true, true, false, true, true},
                 new boolean[] {true, true, true, true, true, true, true, true, true, true, true, true, true, false, true},
-                new boolean[] {true, true, true, false, false, true, true, true, false, false, false, true, true, true, false},
+                new boolean[] {true, true, true, true, false, true, true, true, true, true, true, true, true, true, false}
         };
 
         boolean[] trueFuv =  new boolean[] {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true};
@@ -197,7 +197,7 @@ public class DecideTest {
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
                 if (i != j)
-                    assertEquals(pum[i][j], otherPum[i][j]);
+                    assertEquals(pum[i][j], otherPum[i][j], "mismatch at index [" + i + "][" + j + "]");
             }
         }
     }
