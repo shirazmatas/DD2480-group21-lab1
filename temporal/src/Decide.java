@@ -82,6 +82,13 @@ public class Decide {
         return fuv;
     }
 
+    /**
+     * Helper function used to check if all values in the given row except the
+     * value corresponding to index position, is True. As [i][i] does not matter.
+     * @param row The array to check through
+     * @param i The column number that should be ignored.
+     * @return True if all elements (excluding diagonal) are true, otherwise false.
+     */
     private boolean isPumRowAllTrue(boolean[]row, int i){
         for (int j = 0; j < row.length; j++){
             if (!row[j]){
