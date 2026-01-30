@@ -4,12 +4,24 @@ public class Decide {
     private boolean[][] pum;
     private boolean[] fuv;
 
+    /**
+     * Logical connectors used in the Logical Connector Matrix (LCM).
+     */
     public enum Connector {
         AND,
         OR,
         NOT_USED
     }
 
+    /**
+     * Executes the DECIDE algorithm.
+     *
+     * @param points input data points
+     * @param parameters parameters used by the LICs
+     * @param lcm Logical Connector Matrix defining how LIC results are combined
+     * @param puv Preliminary Unlocking Vector indicating which LICs are relevant
+     * @return true if launch conditions are satisfied, false otherwise
+     */
     public boolean decide(Point[] points, Parameters parameters, Connector[][] lcm, boolean[] puv) {
         cmv = calculateCMV(points, parameters);
         pum = calculatePUM(cmv, lcm);
@@ -18,8 +30,12 @@ public class Decide {
     }
 
     /**
-     * The indices of the CMV (Conditions Met Vector) are set to the result of the
-     * corresponding LIC for the given points and parameters.
+     * Computes the Conditions Met Vector (CMV). Each index i in the CMV corresponds
+     * to the result of LIC i evaluated for the given input points and parameters.
+     *
+     * @param points input data points
+     * @param parameters parameters used by the LICs
+     * @return the Conditions Met Vector
      */
     private boolean[] calculateCMV(Point[] points, Parameters parameters) {
         return new boolean[] {
@@ -41,6 +57,14 @@ public class Decide {
         };
     }
 
+    /**
+     * Computes the Preliminary Unlocking Matrix (PUM). Each element PUM[i][j] is derived
+     * from CMV[i], CMV[j], and the connector specified in LCM[i][j].
+     *
+     * @param cmv the Conditions Met Vector
+     * @param lcm the Logical Connector Matrix
+     * @return the Preliminary Unlocking Matrix
+     */
     private static boolean[][] calculatePUM(boolean[] cmv, Connector[][] lcm){
         boolean[][] PUM = new boolean[cmv.length][cmv.length];
         for(int i = 0; i<lcm.length ; i++){
@@ -57,12 +81,12 @@ public class Decide {
 
     /**
      * Calculate the Final Unlocking Vector based on the Preliminary Unlocking matrix
-     * and the Preliminary Unlocking Vector.
-     * The input PUV indicates whether the corresponding LIC is to be considered as a factor in signaling
-     * interceptor launch. FUV[i] should be set to true if PUV[i] is false (indicating that the associated
-     * LIC should not hold back launch) or if all elements in PUM row i are true.
-     * @param pum The n x n Preliminary Unlocking Matrix.
-     * @param puv The Preliminary Unlocking Vector of length n.
+     * and the Preliminary Unlocking Vector. The input PUV indicates whether the corresponding
+     * LIC is to be considered as a factor in signaling interceptor launch. FUV[i] should be
+     * set to true if PUV[i] is false or if all elements in PUM row i are true.
+     *
+     * @param pum The Preliminary Unlocking Matrix
+     * @param puv The Preliminary Unlocking Vector
      * @return A boolean array representing the Final Unlocking Vector.
      */
     private boolean[] calculateFUV(boolean[][] pum, boolean[] puv) {
@@ -83,11 +107,8 @@ public class Decide {
     }
 
     /**
-     * Helper function used to check if all values in the given row except the
-     * value corresponding to index position, is True. As [i][i] does not matter.
-     * @param row The array to check through
-     * @param i The column number that should be ignored.
-     * @return True if all elements (excluding diagonal) are true, otherwise false.
+     * Check whether all values in the given row are true, ignoring the value corresponding
+     * to index position.
      */
     private boolean isPumRowAllTrue(boolean[]row, int i){
         for (int j = 0; j < row.length; j++){
@@ -101,10 +122,11 @@ public class Decide {
     }
 
     /**
-     * Function used to finally check through the whole fuv that all values are true.
-     * If it's true we can launch the rocket.
-     * @param fuv The Final Unlocking Vector calculated previously.
-     * @return True if all conditions fulfilled, False otherwise.
+     * Check whether a launch should occur based on all elements in the Final Unlocking
+     * Vector.
+     *
+     * @param fuv The Final Unlocking Vector
+     * @return true if all elements are true, false otherwise.
      */
     private boolean calculateLaunch(boolean[] fuv) {
         for (boolean b : fuv) {
@@ -113,14 +135,23 @@ public class Decide {
         return true;
     }
 
+    /**
+     * @return the most recently computed Conditions Met Vector
+     */
     public boolean[] getCmv() {
         return cmv;
     }
 
+    /**
+     * @return the most recently computed Preliminary Unlocking Matrix
+     */
     public boolean[][] getPum() {
         return pum;
     }
 
+    /**
+     * @return the most recently computed Final Unlocking Vector
+     */
     public boolean[] getFuv() {
         return fuv;
     }
