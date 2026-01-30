@@ -55,6 +55,16 @@ public class Decide {
         return PUM;
     }
 
+    /**
+     * Calculate the Final Unlocking Vector based on the Preliminary Unlocking matrix
+     * and the Preliminary Unlocking Vector.
+     * The input PUV indicates whether the corresponding LIC is to be considered as a factor in signaling
+     * interceptor launch. FUV[i] should be set to true if PUV[i] is false (indicating that the associated
+     * LIC should not hold back launch) or if all elements in PUM row i are true.
+     * @param pum The n x n Preliminary Unlocking Matrix.
+     * @param puv The Preliminary Unlocking Vector of length n.
+     * @return A boolean array representing the Final Unlocking Vector.
+     */
     private boolean[] calculateFUV(boolean[][] pum, boolean[] puv) {
         // Go through all points
         int n = puv.length; // should always be 15
@@ -62,8 +72,10 @@ public class Decide {
         for (int i = 0; i < n; i++){
             // check first puv[i] = 0
             if (!puv[i]){
+                // First case where PUV indicates value of PUM does not matter.
                 fuv[i] = true;
             } else {
+                // Otherwise ensure all values to be True.
                 fuv[i] = isPumRowAllTrue(pum[i], i);
             }
         }
