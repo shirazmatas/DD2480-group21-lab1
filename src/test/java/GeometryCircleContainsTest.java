@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 class GeometryCircleContainsTest {
 
+    // Vertices of acute triangle can be contained in circle with given radius
     @Test
     void acuteTriangleInsideCircle() {
         Point a = new Point(0, 0);
@@ -13,6 +14,7 @@ class GeometryCircleContainsTest {
         assertTrue(Geometry.circleContains(a, b, c, 0.8));
     }
 
+    // Vertices of acute triangle cannot be contained in circle with given radius
     @Test
     void acuteTriangleOutsideCircle() {
         Point a = new Point(0, 0);
@@ -23,6 +25,7 @@ class GeometryCircleContainsTest {
         assertFalse(Geometry.circleContains(a, b, c, 0.6));
     }
 
+    // Vertices of right triangle can be contained in circle with given radius
     @Test
     void rightTriangleInsideCircle() {
         Point a = new Point(0, 0);
@@ -33,6 +36,7 @@ class GeometryCircleContainsTest {
         assertTrue(Geometry.circleContains(a, b, c, 1.0));
     }
 
+    // Vertices of obtuse triangle can be contained in circle with given radius
     @Test
     void obtuseTriangleInsideCircle() {
         Point a = new Point(0, 0);
@@ -43,6 +47,7 @@ class GeometryCircleContainsTest {
         assertTrue(Geometry.circleContains(a, b, c, 2.0));
     }
 
+    // Collinear points that cannot be contained in circle with given radius
     @Test
     void collinearPointsOutsideCircle() {
         Point a = new Point(0, 0);
@@ -53,6 +58,7 @@ class GeometryCircleContainsTest {
         assertFalse(Geometry.circleContains(a, b, c, 1.5));
     }
 
+    // Collinear points that can be contained in circle with given radius
     @Test
     void collinearPointsInsideCircle() {
         Point a = new Point(0, 0);
@@ -63,6 +69,7 @@ class GeometryCircleContainsTest {
         assertTrue(Geometry.circleContains(a, b, c, 1.0));
     }
 
+    // Coincident points can be contained in any circle
     @Test
     void coincidentPointsInsideCircle() {
         Point a = new Point(1, 1);

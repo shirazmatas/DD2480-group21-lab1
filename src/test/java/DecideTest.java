@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DecideTest {
 
+    // Test complex launch scenario where the final decision is false
     @Test
     void falseLaunch() {
         Point[] points = {
@@ -101,6 +102,7 @@ public class DecideTest {
         assertFalse(launch);
     }
 
+    // Test complex launch scenario where the final decision is true
     @Test
     void trueLaunch() {
         Point[] points = { 

@@ -2,6 +2,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GeometryTriangleAreaTest {
+
+    // Test area of simple triangle
     @Test
     void triangleArea01(){
         Point a = new Point(0,0);
@@ -10,6 +12,7 @@ class GeometryTriangleAreaTest {
         assertEquals(0.5,Geometry.triangleArea(a,b,c));
     }
 
+    // Test are of collinear points is 0
     @Test
     void triangleArea02(){
         Point a = new Point(1, 1);
@@ -18,6 +21,7 @@ class GeometryTriangleAreaTest {
         assertEquals(0.0, Geometry.triangleArea(a,b,c));
     }
 
+    // Test area of triangle with negative points
     @Test
     void triangleArea03(){
         Point a = new Point(0,0);

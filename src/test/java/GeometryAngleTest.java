@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GeometryAngleTest {
     private static final double EPSILON = 0.001;
+
+    // Test if right angle computed correctly
     @Test
     void testRightAngle() {
         Point a = new Point(0, 1);
@@ -14,6 +16,7 @@ class GeometryAngleTest {
         assertEquals(Math.PI/2.0, Geometry.angle(a,b,c), EPSILON);
     }
 
+    // Test if angle computed correctly for collinear points
     @Test
     void testFlatLine() {
         Point a = new Point(-1, 0);
@@ -23,6 +26,7 @@ class GeometryAngleTest {
         assertEquals(Math.PI, Geometry.angle(a, b, c), EPSILON);
     }
 
+    // Test if angle computed correctly for all identical points
     @Test
     void testSamePoints() {
         Point p = new Point(1,1);
@@ -30,6 +34,7 @@ class GeometryAngleTest {
         assertEquals(NaN, Geometry.angle(p, p, p), EPSILON);
     }
 
+    // Test if angle computed correctly with negative points
     @Test
     void testNegativePoints(){
         Point a = new Point(-2,-1);
@@ -38,6 +43,7 @@ class GeometryAngleTest {
         assertEquals(3 * Math.PI/2.0, Geometry.angle(a,b,c), EPSILON);
     }
 
+    // Test that angle is 0 if A and C are identical
     @Test
     void testACSame(){
         // when other points same should return 0.
