@@ -28,63 +28,127 @@ public final class LIC {
      */
 
     public static boolean lic0(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        PairPredicate distanceIsGreaterThanLength1 = (a, b) -> {
+            // Calculate distance using distance formula
+            double distance = Math.sqrt(Math.pow(a.x() - b.x(), 2) +Math.pow(a.y()-b.y(), 2));
+            // should use
+            // Check if bigger than length1
+            return distance > parameters.length1();
+        };
+        return anyConsecutivePair(points, distanceIsGreaterThanLength1);
     }
 
     public static boolean lic1(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        TriplePredicate consectiveThreeNotInCircle = (a,b,c ) -> ! Geometry.circleContains(a,b,c, parameters.radius1());
+        return anyConsecutiveTriple(points,consectiveThreeNotInCircle);
     }
 
     public static boolean lic2(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        TriplePredicate angleSmallerOrBiggerPiEpsilon = (a, b, c) -> {
+            double angle = Geometry.angle(a,b,c);
+            return angle < (Math.PI - parameters.epsilon()) || angle > (Math.PI + parameters.epsilon());
+        };
+        // Note The second of the three consecutive points is always the vertex of the angle. If either the first
+        //point or the last point (or both) coincides with the vertex, the angle is undefined and the LIC
+        //is not satisfied by those three points.
+        return anyConsecutiveTriple(points, angleSmallerOrBiggerPiEpsilon);
     }
 
     public static boolean lic3(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        TriplePredicate triangleAreaGreaterThanArea1 = (a, b, c) -> Geometry.triangleArea(a,b,c) > parameters.area1();
+        return anyConsecutiveTriple(points, triangleAreaGreaterThanArea1);
     }
 
     public static boolean lic4(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        NPredicate oneSetOfQPointsInMoreThanQuadsQuadrants = (subsetPoints) ->{
+            boolean[] quadrantUsed = new boolean[4];
+            int count = 0;
+            for (Point p: subsetPoints){
+                int quadrantInt = getQuadrant(p);
+                quadrantUsed[quadrantInt] = true;
+            }
+
+            for (boolean used: quadrantUsed){
+                if (used) count++;
+            }
+            return count > parameters.quads();
+        };
+        return anyConsecutiveN(points, parameters.qPoints(), oneSetOfQPointsInMoreThanQuadsQuadrants);
     }
 
     public static boolean lic5(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anyConsecutivePair(points, (a, b) ->
+            b.x() < a.x()
+        );
     }
 
     public static boolean lic6(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anyConsecutiveN(points, parameters.nPoints(), group ->
+            Arrays.stream(group).anyMatch( p ->
+                Geometry.distanceToLine(p, group[0], group[group.length - 1]) > parameters.distance()
+            )
+        );
     }
 
     public static boolean lic7(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anySeparatedPair(points, parameters.kPoints(), (a, b) ->
+            Geometry.distance(a, b) > parameters.length1()
+        );
     }
 
     public static boolean lic8(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anySeparatedTriple(points, parameters.aPoints(), parameters.bPoints(), (a, b, c) ->
+            !Geometry.circleContains(a, b, c, parameters.radius1())
+        );
     }
 
     public static boolean lic9(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anySeparatedTriple(points, parameters.cPoints(), parameters.dPoints(), (a, b, c) -> {
+            double angle = Geometry.angle(a, b, c);
+            return !Double.isNaN(angle) && !Geometry.approximatelyEquals(angle, Math.PI, parameters.epsilon());
+        });
     }
 
     public static boolean lic10(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anySeparatedTriple(points, parameters.ePoints(), parameters.fPoints(), (a,b,c) -> {
+            return Geometry.triangleArea(a, b, c) > parameters.area1();
+        });
     }
 
     public static boolean lic11(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        return anySeparatedPair(points, parameters.gPoints(), (a, b) ->
+                b.x() < a.x() //
+        );
     }
 
     public static boolean lic12(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        boolean condition1 = anySeparatedPair(points, parameters.kPoints(), (a, b) ->
+                Geometry.distance(a, b) > parameters.length1());
+
+        boolean condition2 = anySeparatedPair(points, parameters.kPoints(), (a, b) ->
+                Geometry.distance(a, b) < parameters.length2());
+
+        return condition1 && condition2;
     }
 
     public static boolean lic13(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        boolean condition1 = anySeparatedTriple(points, parameters.aPoints(), parameters.bPoints(), (a, b, c) ->
+                !Geometry.circleContains(a,b, c, parameters.radius1()));
+
+        boolean condition2 = anySeparatedTriple(points, parameters.aPoints(), parameters.bPoints(), (a, b, c) ->
+                Geometry.circleContains(a, b, c , parameters.radius2()));
+
+        return condition1 && condition2;
     }
 
     public static boolean lic14(Point[] points, Parameters parameters) {
-        throw new UnsupportedOperationException();
+        boolean condition1 = anySeparatedTriple(points, parameters.ePoints(), parameters.fPoints(), (a, b, c) ->
+                Geometry.triangleArea(a, b, c) > parameters.area1());
+
+        boolean condition2 = anySeparatedTriple(points, parameters.ePoints(), parameters.fPoints(), (a, b, c) ->
+                Geometry.triangleArea(a, b, c) < parameters.area2());
+
+        return condition1 && condition2;
     }
 
     /*
@@ -158,6 +222,13 @@ public final class LIC {
      */
     private static boolean anyConsecutivePair(Point[] points, PairPredicate predicate) {
         return anyConsecutiveN(points, 2, p -> predicate.test(p[0], p[1]));
+    }
+
+    private static int getQuadrant(Point p){
+        if (p.x() >=0 && p.y() >= 0) return 1;
+        if (p.x() < 0 && p.y()>= 0) return 2;
+        if (p.x() <= 0 && p.y() < 0) return 3;
+        return 4;
     }
 
 }
