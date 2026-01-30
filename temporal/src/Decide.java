@@ -100,6 +100,12 @@ public class Decide {
         return true;
     }
 
+    /**
+     * Function used to finally check through the whole fuv that all values are true.
+     * If it's true we can launch the rocket.
+     * @param fuv The Final Unlocking Vector calculated previously.
+     * @return True if all conditions fulfilled, False otherwise.
+     */
     private boolean calculateLaunch(boolean[] fuv) {
         for (boolean b : fuv) {
             if (!b) return false;
