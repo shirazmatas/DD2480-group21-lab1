@@ -83,10 +83,21 @@ public final class Geometry {
         return 0.5*shoelace;
     }
 
+    /**
+     * Returns the distance between the points {@code p} and the line passing through
+     * {@code a} and {@code b}. If the {@code a} and {@code b} are coincident, returns
+     * the distance between {@code p} and the point.
+     *
+     * @param p the point
+     * @param a the first point defining the line
+     * @param b the second point defining the line
+     * @return the distance between the point and the line or coincident point
+     */
     public static double distanceToLine(Point p, Point a, Point b) {
-        double numerator = Math.abs( ((b.x() - a.x())*(p.y()-a.y())) - (b.y()-a.y())*(p.x()-a.x()) );
-        double denominator = Math.sqrt(((b.x() - a.x())*(b.x() - a.x())) + ((b.y()-a.y())*(b.y()-a.y())));
-        return numerator/denominator;
+        if (a.equals(b)) return distance(a, p);
+        double numerator = Math.abs(((b.x() - a.x()) * (p.y() - a.y())) - (b.y() - a.y()) * (p.x() - a.x()));
+        double denominator = Math.hypot(b.x() - a.x(), b.y() - a.y());
+        return numerator / denominator;
     }
 
 }

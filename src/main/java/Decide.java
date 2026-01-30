@@ -1,5 +1,9 @@
 public class Decide {
 
+    private boolean[] cmv;
+    private boolean[][] pum;
+    private boolean[] fuv;
+
     public enum Connector {
         AND,
         OR,
@@ -7,7 +11,10 @@ public class Decide {
     }
 
     public boolean decide(Point[] points, Parameters parameters, Connector[][] lcm, boolean[] puv) {
-        throw new UnsupportedOperationException();
+        cmv = calculateCMV(points, parameters);
+        pum = calculatePUM(cmv, lcm);
+        fuv = calculateFUV(pum, puv);
+        return calculateLaunch(fuv);
     }
 
     /**
@@ -34,7 +41,7 @@ public class Decide {
         };
     }
 
-    public static boolean[][] calculatePUM(boolean[] cmv, Connector[][] lcm){
+    private static boolean[][] calculatePUM(boolean[] cmv, Connector[][] lcm){
         boolean[][] PUM = new boolean[cmv.length][cmv.length];
         for(int i = 0; i<lcm.length ; i++){
             for(int j = 0; j<lcm.length ; j++){
@@ -74,4 +81,22 @@ public class Decide {
         return true;
     }
 
+    private boolean calculateLaunch(boolean[] fuv) {
+        for (boolean b : fuv) {
+            if (!b) return false;
+        }
+        return true;
+    }
+
+    public boolean[] getCmv() {
+        return cmv;
+    }
+
+    public boolean[][] getPum() {
+        return pum;
+    }
+
+    public boolean[] getFuv() {
+        return fuv;
+    }
 }
