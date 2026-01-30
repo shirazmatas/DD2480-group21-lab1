@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 class LIC5Test {
 
     private static final Parameters EMPTY_PARAMETERS =
-            new Parameters(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+            new Parameters(0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1);
 
     @Test
     void decreasingX() {

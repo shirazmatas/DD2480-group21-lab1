@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class LIC0Test {
     private static Parameters makeParameters(double length1) {
         return new Parameters(
-                length1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+                length1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1
         );
     }
     @Test

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LIC13Test {
     private static Parameters makeParameters(double rad1, double rad2, int aPoints, int bPoints) {
-        return new Parameters(0, 0, rad1, rad2, 0, 0, 0, 0, 0, 0, 0, 1, aPoints, bPoints, 0, 0, 0,0, 0);
+        return new Parameters(0, 0, rad1, rad2, 0, 0, 0, 0, 1, 2, 3, 1, aPoints, bPoints, 1, 1, 1, 1, 1);
     }
 
     @Test

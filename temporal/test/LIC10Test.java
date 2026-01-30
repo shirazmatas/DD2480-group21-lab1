@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 
 public class LIC10Test {
     private static Parameters makeParameters(int nPoints, double area, int ePoints, int fPoints) {
-        return new Parameters(0, 0, 0, 0, area, 0, 0, 0, 0, 0, nPoints, 0, 0, 0, 0, ePoints, fPoints,1, 0);
+        return new Parameters(0, 0, 0, 0, area, 0, 0, 0, 1, 2, nPoints, 3, 1, 1, 1, 1, ePoints, fPoints, 1);
     }
 
     @Test

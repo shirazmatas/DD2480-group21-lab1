@@ -5,7 +5,7 @@ class LIC7Test {
 
     private static Parameters makeParameters(int kPoints, double length1) {
         return new Parameters(
-                length1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, kPoints, 0, 0, 0, 0, 0, 0, 0
+                length1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, kPoints, 1, 1, 1, 1, 1, 1, 1
         );
     }
 

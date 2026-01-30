@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class LIC1Test {
     private static Parameters makeParameters(double radius1) {
         return new Parameters(
-                0, 0, radius1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+                0, 0, radius1, 0, 0, 0, 0, 0, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1
         );
     }
     @Test
@@ -47,6 +47,6 @@ class LIC1Test {
     void testAcutePoints(){
         Point[] points = {new Point(0, 0), new Point(4, 0), new Point(2, 3)};
         assertTrue(LIC.lic1(points, makeParameters(2.0)));
-        assertFalse(LIC.lic1(points, makeParameters(2.1)));
+        assertFalse(LIC.lic1(points, makeParameters(2.2)));
     }
 }
