@@ -27,6 +27,11 @@ public final class LIC {
     LICs
      */
 
+    /**
+     * LIC 0:
+     * There exists at least one pair of consecutive points whose distance
+     * is greater than LENGTH1.
+     */
     public static boolean lic0(Point[] points, Parameters parameters) {
         PairPredicate distanceIsGreaterThanLength1 = (a, b) -> {
             // Calculate distance using distance formula
@@ -38,11 +43,22 @@ public final class LIC {
         return anyConsecutivePair(points, distanceIsGreaterThanLength1);
     }
 
+    /**
+     * LIC 1:
+     * There exists at least one set of three consecutive points that
+     * cannot be contained within or on a circle of radius RADIUS1.
+     */
     public static boolean lic1(Point[] points, Parameters parameters) {
         TriplePredicate consectiveThreeNotInCircle = (a,b,c ) -> ! Geometry.circleContains(a,b,c, parameters.radius1());
         return anyConsecutiveTriple(points,consectiveThreeNotInCircle);
     }
 
+    /**
+     * LIC 2:
+     * There exists at least one set of three consecutive points forming
+     * an angle that is either less than (PI - EPSILON) or greater than
+     * (PI + EPSILON), with the second point as vertex.
+     */
     public static boolean lic2(Point[] points, Parameters parameters) {
         TriplePredicate angleSmallerOrBiggerPiEpsilon = (a, b, c) -> {
             double angle = Geometry.angle(a,b,c);
@@ -54,11 +70,21 @@ public final class LIC {
         return anyConsecutiveTriple(points, angleSmallerOrBiggerPiEpsilon);
     }
 
+    /**
+     * LIC 3:
+     * There exists at least one set of three consecutive points that
+     * form a triangle with area greater than AREA1.
+     */
     public static boolean lic3(Point[] points, Parameters parameters) {
         TriplePredicate triangleAreaGreaterThanArea1 = (a, b, c) -> Geometry.triangleArea(a,b,c) > parameters.area1();
         return anyConsecutiveTriple(points, triangleAreaGreaterThanArea1);
     }
 
+    /**
+     * LIC 4:
+     * There exists at least one set of Q_POINTS consecutive points that
+     * lie in more than QUADS distinct quadrants.
+     */
     public static boolean lic4(Point[] points, Parameters parameters) {
         NPredicate oneSetOfQPointsInMoreThanQuadsQuadrants = (subsetPoints) ->{
             boolean[] quadrantUsed = new boolean[4];
@@ -76,12 +102,23 @@ public final class LIC {
         return anyConsecutiveN(points, parameters.qPoints(), oneSetOfQPointsInMoreThanQuadsQuadrants);
     }
 
+    /**
+     * LIC 5:
+     * There exists at least one pair of consecutive points such that
+     * X[j] - X[i] < 0.
+     */
     public static boolean lic5(Point[] points, Parameters parameters) {
         return anyConsecutivePair(points, (a, b) ->
             b.x() < a.x()
         );
     }
 
+    /**
+     * LIC 6:
+     * There exists at least one set of N_POINTS consecutive points such
+     * that at least one point lies a distance greater than DIST from the
+     * line joining the first and last points.
+     */
     public static boolean lic6(Point[] points, Parameters parameters) {
         return anyConsecutiveN(points, parameters.nPoints(), group ->
             Arrays.stream(group).anyMatch( p ->
@@ -90,18 +127,35 @@ public final class LIC {
         );
     }
 
+    /**
+     * LIC 7:
+     * There exists at least one pair of points separated by exactly
+     * K_POINTS intervening points whose distance is greater than LENGTH1.
+     */
     public static boolean lic7(Point[] points, Parameters parameters) {
         return anySeparatedPair(points, parameters.kPoints(), (a, b) ->
             Geometry.distance(a, b) > parameters.length1()
         );
     }
 
+    /**
+     * LIC 8:
+     * There exists at least one triple of points separated by exactly
+     * A_POINTS and B_POINTS intervening points that cannot be contained
+     * within or on a circle of radius RADIUS1.
+     */
     public static boolean lic8(Point[] points, Parameters parameters) {
         return anySeparatedTriple(points, parameters.aPoints(), parameters.bPoints(), (a, b, c) ->
             !Geometry.circleContains(a, b, c, parameters.radius1())
         );
     }
 
+    /**
+     * LIC 9:
+     * There exists at least one triple of points separated by exactly
+     * C_POINTS and D_POINTS intervening points forming an angle that is
+     * not approximately equal to PI.
+     */
     public static boolean lic9(Point[] points, Parameters parameters) {
         return anySeparatedTriple(points, parameters.cPoints(), parameters.dPoints(), (a, b, c) -> {
             double angle = Geometry.angle(a, b, c);
@@ -109,18 +163,35 @@ public final class LIC {
         });
     }
 
+    /**
+     * LIC 10:
+     * There exists at least one triple of points separated by exactly
+     * E_POINTS and F_POINTS intervening points forming a triangle with
+     * area greater than AREA1.
+     */
     public static boolean lic10(Point[] points, Parameters parameters) {
         return anySeparatedTriple(points, parameters.ePoints(), parameters.fPoints(), (a,b,c) -> {
             return Geometry.triangleArea(a, b, c) > parameters.area1();
         });
     }
 
+    /**
+     * LIC 11:
+     * There exists at least one pair of points separated by exactly
+     * G_POINTS intervening points such that X[j] - X[i] < 0.
+     */
     public static boolean lic11(Point[] points, Parameters parameters) {
         return anySeparatedPair(points, parameters.gPoints(), (a, b) ->
                 b.x() < a.x() //
         );
     }
 
+    /**
+     * LIC 12:
+     * There exists at least one separated pair with distance greater than
+     * LENGTH1 and at least one (possibly different) separated pair with
+     * distance less than LENGTH2.
+     */
     public static boolean lic12(Point[] points, Parameters parameters) {
         boolean condition1 = anySeparatedPair(points, parameters.kPoints(), (a, b) ->
                 Geometry.distance(a, b) > parameters.length1());
@@ -131,6 +202,12 @@ public final class LIC {
         return condition1 && condition2;
     }
 
+    /**
+     * LIC 13:
+     * There exists at least one separated triple not contained in a circle
+     * of radius RADIUS1 and at least one (possibly different) separated
+     * triple contained in a circle of radius RADIUS2.
+     */
     public static boolean lic13(Point[] points, Parameters parameters) {
         boolean condition1 = anySeparatedTriple(points, parameters.aPoints(), parameters.bPoints(), (a, b, c) ->
                 !Geometry.circleContains(a,b, c, parameters.radius1()));
@@ -141,6 +218,12 @@ public final class LIC {
         return condition1 && condition2;
     }
 
+    /**
+     * LIC 14:
+     * There exists at least one separated triple with area greater than
+     * AREA1 and at least one (possibly different) separated triple with
+     * area less than AREA2.
+     */
     public static boolean lic14(Point[] points, Parameters parameters) {
         boolean condition1 = anySeparatedTriple(points, parameters.ePoints(), parameters.fPoints(), (a, b, c) ->
                 Geometry.triangleArea(a, b, c) > parameters.area1());
@@ -224,6 +307,9 @@ public final class LIC {
         return anyConsecutiveN(points, 2, p -> predicate.test(p[0], p[1]));
     }
 
+    /**
+     * Determines quadrant of a point.
+     */
     private static int getQuadrant(Point p){
         if (p.x() >=0 && p.y() >= 0) return 1;
         if (p.x() < 0 && p.y()>= 0) return 2;

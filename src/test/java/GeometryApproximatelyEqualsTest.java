@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 class GeometryApproximatelyEqualsTest {
 
+    // Various simple tests of approximately equal values
     @Test
     void approximatelyEquals() {
         assertTrue(Geometry.approximatelyEquals(1.0, 1.0, 0.0));

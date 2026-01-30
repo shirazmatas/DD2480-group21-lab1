@@ -1,3 +1,26 @@
+/**
+ * Defined parameters as given by assignment paper. These values are given in input
+ * and used in most calculations. They are constants and unchangeable.
+ * @param length1
+ * @param length2
+ * @param radius1
+ * @param radius2
+ * @param area1
+ * @param area2
+ * @param epsilon
+ * @param distance
+ * @param quads
+ * @param qPoints
+ * @param nPoints
+ * @param kPoints
+ * @param aPoints
+ * @param bPoints
+ * @param cPoints
+ * @param dPoints
+ * @param ePoints
+ * @param fPoints
+ * @param gPoints
+ */
 public record Parameters(
     double length1,
     double length2,
@@ -19,6 +42,9 @@ public record Parameters(
     int fPoints,
     int gPoints
 ) {
+    /**
+     * Constructor with validation based on the limitations given in assignment paper.
+     */
     public Parameters {
         if (length1 < 0 || length2 < 0)
             throw new IllegalArgumentException("lengths must be non-negative");

@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GeometryDistanceToLineTest {
 
+    // Distance from point to line
     @Test
     void distanceToPoint01(){
         Point p = new Point(5, 5);
@@ -11,6 +12,7 @@ public class GeometryDistanceToLineTest {
         assertEquals(5.0, Geometry.distanceToLine(p, a, b));
     }
 
+    // Distance from point on line is 0
     @Test
     void distanceToPoint02(){
         Point p = new Point(0, 5);
@@ -19,6 +21,7 @@ public class GeometryDistanceToLineTest {
         assertEquals(0.0, Geometry.distanceToLine(p, a, b));
     }
 
+    // Distance from point diagonal to line
     @Test
     void distanceToPoint03(){
         double diag = Math.sqrt(2);
@@ -28,6 +31,7 @@ public class GeometryDistanceToLineTest {
         assertEquals(diag, Geometry.distanceToLine(p, a, b),1e-6);
     }
 
+    // If two line points are coincident, return distance between points
     @Test
     void distanceToPoint04(){
         Point p = new Point(0,0);
